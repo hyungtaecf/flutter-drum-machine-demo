@@ -1,37 +1,38 @@
-import 'dart:async';
-import 'package:audioplayers/audio_cache.dart';
+// import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-enum DRUM_SAMPLE { KICK, SNARE, HAT, TOM1, TOM2, CRASH }
+enum DrumSample { KICK, SNARE, HAT, TOM1, TOM2, CRASH }
 
 abstract class Sampler {
+  static String _ext = '.wav';
 
-	static String _ext = '.wav';
+  static Map<DrumSample, String> samples = const {
+    DrumSample.KICK: 'kick',
+    DrumSample.SNARE: 'snare',
+    DrumSample.HAT: 'hat',
+    DrumSample.TOM1: 'tom1',
+    DrumSample.TOM2: 'tom2',
+    DrumSample.CRASH: 'crash'
+  };
 
-	static Map<DRUM_SAMPLE, String> samples = const {
-		DRUM_SAMPLE.KICK: 'kick',
-		DRUM_SAMPLE.SNARE: 'snare',
-		DRUM_SAMPLE.HAT: 'hat',
-		DRUM_SAMPLE.TOM1: 'tom1',
-		DRUM_SAMPLE.TOM2: 'tom2',
-		DRUM_SAMPLE.CRASH: 'crash'
-	};
+  static List<Color> colors = [
+    Colors.red,
+    Colors.amber,
+    Colors.purple,
+    Colors.blue,
+    Colors.cyan,
+    Colors.pink,
+  ];
 
-	static List<Color> colors = [
-		Colors.red,
-		Colors.amber,
-		Colors.purple,
-		Colors.blue,
-		Colors.cyan,
-		Colors.pink,
-	];
+//   static List<String> _files = List.generate(
+//       samples.length, (i) => samples[DrumSample.values[i]]! + _ext);
 
-	static List<String> _files = List.generate(samples.length, (i) => samples[DRUM_SAMPLE.values[i]] + _ext);
+  static AudioPlayer _player = AudioPlayer();
+//   static AudioCache _cache = AudioCache(respectSilence: true);
 
-	static AudioCache _cache = AudioCache(respectSilence: true);
+//   static Future<void> init() => _player.loadAll(_files);
 
-	static Future<void> init() => _cache.loadAll(_files);
-
-	static void play(DRUM_SAMPLE sample) => _cache.play(samples[sample] + _ext, mode: PlayerMode.LOW_LATENCY);
+  static void play(DrumSample sample) => _player
+      .play(AssetSource(samples[sample]! + _ext), mode: PlayerMode.lowLatency);
 }

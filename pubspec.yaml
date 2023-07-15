@@ -1,15 +1,15 @@
 name: flutter_drum_machine_demo
 description: An example project demonstrating how to build a simple drum machine in Flutter
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
-  audioplayers: ^0.15.1
+  audioplayers:
 
 dev_dependencies:
   flutter_test:
